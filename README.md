@@ -79,7 +79,7 @@ If not installed, use Homebrew:
 ### Provisioning Resources
 Navigate to the terraform directory and run:
 ```
- cd terraform
+ cd ../terraform
  terraform init
  terraform plan
  terraform apply
