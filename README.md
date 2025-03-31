@@ -111,7 +111,7 @@ terraform output
 
 3. Connect to the bastion host with agent forwarding:
 ```
- ssh -A -i ami-key-pair.pem ec2-user@[bastion-host-public-dns]
+ ssh -A -i ami-pair.pem ec2-user@[bastion-host-public-dns]
 ```
 4. Since we have setup Ansible Controller inside the private subnet we will need to copy our ami-pair.pem to the ansible controller.\
    The reason to do this is we want ansible-controller to be able to communicate with other hosts which have ami-pair.pem as the key.
