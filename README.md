@@ -137,6 +137,15 @@ terraform output
    ![img_3.png](./screenshots/img_3.png)
    Now we need to test if ansible controller can connect to other instances in private subnet using the key.
    ```
+   mkdir -p ~/.ssh
+   chmod 700 ~/.ssh
+   chmod 700 ~/ami-pair.pem
+   
+   # Copy the key to the right location
+   cp ~/ami-pair.pem ~/.ssh/ 
+   cd .ssh
+   chmod 400 ami-pair.pem
+   
    ssh -i ami-pair.pem ec2-user@<YOUR AMAZON LINUX PRIVATE DNS>
    exit
    ssh -i ami-pair.pem ubuntu@<YOUR UBUNTU PRIVATE DNS>
@@ -148,10 +157,17 @@ terraform output
    ```
 9. Before copying the contents of the file located in the repo under /ansible/ edit the ips that were shown during the terraform process.
    ```
-   COPY the edited file hosts.ini and paste it in the ansible controller ec2 terminal
+   nano ~/ansible/inventory/hosts.ini
+   
+   # Copy the contents of the repo ~/ansible/inventory/hosts.ini into the Ansible-Controller Terminal.
    ```
 10. Now in the ansible folder in the repo copy-paste the contents of file ansible.cfg as is to the ANSIBLE CONTROLLER EC2 TERMINAL.
    ```
+   nano ~/ansible/ansible.cfg
+   COPY-PASTE the contents from the file in the repo to the ansible controller terminal.
+   
+   ********* OR **********
+
    cat > ~/ansible/ansible.cfg << 'EOF'
    [defaults]
    inventory = ~/ansible/inventory/hosts.ini
