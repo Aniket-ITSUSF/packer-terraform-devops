@@ -1,0 +1,49 @@
+- name: Manage EC2 instances
+  hosts: all
+  become: yes
+  gather_facts: yes
+
+  tasks:
+    # Update and upgrade packages
+    - name: Update apt cache (Ubuntu)
+      apt:
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Upgrade packages (Ubuntu)
+      apt:
+        upgrade: dist
+      when: ansible_os_family == "Debian"
+
+    - name: Update dnf cache (Amazon Linux)
+      dnf:
+        update_cache: yes
+      when: ansible_os_family == "RedHat"
+
+    - name: Upgrade packages (Amazon Linux)
+      dnf:
+        name: '*'
+        state: latest
+      when: ansible_os_family == "RedHat"
+
+    # Verify Docker
+    - name: Check if Docker is installed
+      command: docker --version
+      register: docker_version
+      changed_when: false
+      ignore_errors: yes
+
+    - name: Display Docker version if installed
+      debug:
+        msg: "Docker version: {{ docker_version.stdout }}"
+      when: docker_version.rc == 0
+
+    # Report disk usage
+    - name: Get disk usage information
+      command: df -h
+      register: disk_usage
+      changed_when: false
+
+    - name: Display disk usage
+      debug:
+        msg: "{{ disk_usage.stdout_lines }}"

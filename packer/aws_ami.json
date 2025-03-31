@@ -14,7 +14,7 @@
   "provisioners": [
     {
       "type": "shell",
-      "script": "init.sh"
+      "script": "aws_ami.sh"
     }
   ]
 }
