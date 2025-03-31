@@ -131,13 +131,13 @@ terraform output
 
 2. Add your private key to the SSH agent:
 ```
- ssh-add ami-key-pair.pem
+ ssh-add ami-pair.pem
 ```
 ![img_7.png](./screenshots/img_7.png)
 
 3. Connect to the bastion host with agent forwarding:
 ```
- ssh -A -i ami-key-pair.pem ec2-user@[bastion-host-public-dns]
+ ssh -A -i ami-pair.pem ec2-user@[bastion-host-public-dns]
 ```
 ![img_8.png](./screenshots/img_8.png)
 
